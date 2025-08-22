@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyAttendance - Offline</title>
+    <style>
+        :root {
+            --background: 222 84% 4.9%;
+            --foreground: 210 40% 98%;
+            --primary: 217 91% 60%;
+            --card: 222 84% 6%;
+            --border: 217 32% 17%;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: hsl(var(--background));
+            color: hsl(var(--foreground));
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+        
+        .container {
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            background: hsl(var(--card));
+            padding: 3rem 2rem;
+            border-radius: 1rem;
+            border: 1px solid hsl(var(--border));
+        }
+        
+        .icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: hsl(var(--primary));
+        }
+        
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        p {
+            line-height: 1.6;
+            color: hsl(210 40% 75%);
+            margin-bottom: 2rem;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: hsl(var(--primary));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            min-width: 120px;
+        }
+        
+        button:hover {
+            background: hsl(217 91% 55%);
+            transform: translateY(-1px);
+        }
+        
+        .secondary {
+            background: transparent;
+            border: 1px solid hsl(var(--border));
+            color: hsl(var(--foreground));
+        }
+        
+        .secondary:hover {
+            background: hsl(var(--border));
+        }
+        
+        .features {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid hsl(var(--border));
+        }
+        
+        .features h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: hsl(var(--primary));
+        }
+        
+        .features ul {
+            list-style: none;
+            text-align: left;
+        }
+        
+        .features li {
+            padding: 0.5rem 0;
+            color: hsl(210 40% 75%);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .features li::before {
+            content: "✓";
+            color: hsl(142 71% 45%);
+            font-weight: bold;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 2rem 1.5rem;
+            }
+            
+            .actions {
+                flex-direction: column;
+            }
+            
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">📚</div>
+        <h1>MyAttendance</h1>
+        <h2>You're Offline</h2>
+        <p>Don't worry! You can still view your cached data and mark attendance. Changes will sync automatically when you're back online.</p>
+        
+        <div class="actions">
+            <button onclick="window.location.reload()">Try Again</button>
+            <button class="secondary" onclick="goToApp()">Open App</button>
+        </div>
+        
+        <div class="features">
+            <h3>Available Offline:</h3>
+            <ul>
+                <li>View your dashboard</li>
+                <li>Check timetable</li>
+                <li>Mark attendance</li>
+                <li>View analytics</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function goToApp() {
+            window.location.href = '/';
+        }
+        
+        // Check for network connectivity
+        function checkConnection() {
+            if (navigator.onLine) {
+                window.location.reload();
+            }
+        }
+        
+        // Listen for online events
+        window.addEventListener('online', checkConnection);
+        
+        // Check connection every 30 seconds
+        setInterval(checkConnection, 30000);
+    </script>
+</body>
+</html>
